@@ -47,6 +47,8 @@ local function main()
   imview = viewer:addImage(img:multiplyAddConstant(0.5, 127))
   viewer:addPixelRegion(region, regionDecoration, nil, imview)
   viewer:present()
+
+  print('App finished.')
 end
 
 --The following registration is part of the global scope which runs once after startup
