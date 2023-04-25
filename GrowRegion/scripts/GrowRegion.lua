@@ -4,15 +4,12 @@ print('AppEngine Version: ' .. Engine.getVersion())
 local DELAY = 1000 -- ms between visualization steps for demonstration purpose
 
 -- Creating viewer
-local viewer = View.create("viewer2D1")
+local viewer = View.create()
 
-local regionDecoration = View.PixelRegionDecoration.create()
-regionDecoration:setColor(0, 150, 0, 150)
+local regionDecoration = View.PixelRegionDecoration.create():setColor(0, 150, 0, 150)
 
-local pointDecoration = View.ShapeDecoration.create()
-pointDecoration:setLineColor(0, 255, 0)
-pointDecoration:setPointType('CROSS')
-pointDecoration:setPointSize(15)
+local pointDecoration = View.ShapeDecoration.create():setLineColor(0, 255, 0)
+pointDecoration:setPointType('CROSS'):setPointSize(15)
 
 --End of Global Scope-----------------------------------------------------------
 
@@ -30,9 +27,8 @@ local function main()
 
   -- Show image and seed points
   viewer:clear()
-  local imview = viewer:addImage(img:multiplyAddConstant(0.5, 127))
-  viewer:addShape(seedPoints[1], pointDecoration, nil, imview)
-  viewer:addShape(seedPoints[2], pointDecoration, nil, imview)
+  viewer:addImage(img:multiplyAddConstant(0.5, 127))
+  viewer:addShape(seedPoints, pointDecoration)
   viewer:present()
   Script.sleep(DELAY)
 
@@ -44,8 +40,8 @@ local function main()
 
   -- Show result, lighten the image to make region decorations more visible.
   viewer:clear()
-  imview = viewer:addImage(img:multiplyAddConstant(0.5, 127))
-  viewer:addPixelRegion(region, regionDecoration, nil, imview)
+  viewer:addImage(img:multiplyAddConstant(0.5, 127))
+  viewer:addPixelRegion(region, regionDecoration)
   viewer:present()
 
   print('App finished.')
